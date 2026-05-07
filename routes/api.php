@@ -30,6 +30,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/projects/{project}/boards', [BoardController::class, 'index']);
     Route::post('/boards', [BoardController::class, 'store']);
     Route::put('/boards/reorder', [BoardController::class, 'reorder']);
+    Route::delete('/boards/{board}', [BoardController::class, 'destroy']);
 
     Route::get('/boards/{board}/tasks', [TaskController::class, 'index']);
     Route::post('/tasks', [TaskController::class, 'store']);

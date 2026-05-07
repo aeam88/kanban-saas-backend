@@ -51,4 +51,13 @@ class BoardController extends Controller
 
         return response()->json(['message' => 'Boards reordered']);
     }
+
+    public function destroy(Board $board)
+    {
+        $this->authorize('delete', $board);
+        
+        $board->delete();
+
+        return response()->json(['message' => 'Board deleted successfully']);
+    }
 }

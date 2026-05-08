@@ -97,21 +97,35 @@ The architecture follows a hierarchical structure to support SaaS multi-tenancy:
 | `GET`  | `/api/workspaces` | List all user workspaces |
 | `POST` | `/api/workspaces` | Create a new workspace |
 | `GET`  | `/api/workspaces/{id}` | Show workspace details |
+| `DELETE`| `/api/workspaces/{id}` | Delete a workspace |
 | `POST` | `/api/workspaces/{id}/invite` | Invite user by email |
 
-### Projects & Boards
+### Projects
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `GET`  | `/api/workspaces/{id}/projects` | List projects in workspace |
 | `POST` | `/api/projects` | Create a project |
-| `PUT`  | `/api/boards/reorder` | Reorder boards in project |
+| `GET`  | `/api/projects/{id}/board` | Get full board view (columns & tasks) |
+| `PUT`  | `/api/projects/{id}` | Update project details |
+| `DELETE`| `/api/projects/{id}` | Delete a project |
 
-### Tasks
+### Boards (Columns)
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| `GET`  | `/api/boards/{id}/tasks` | List tasks in board |
+| `GET`  | `/api/projects/{id}/boards` | List columns for a project |
+| `POST` | `/api/boards` | Create a new column |
+| `PUT`  | `/api/boards/reorder` | Reorder columns in project |
+| `DELETE`| `/api/boards/{id}` | Delete a column |
+
+### Tasks & Comments
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET`  | `/api/boards/{id}/tasks` | List tasks in a column |
 | `POST` | `/api/tasks` | Create a task |
+| `PUT`  | `/api/tasks/{id}` | Update task details |
 | `PATCH`| `/api/tasks/{id}/move` | Move task (reorder/change board) |
+| `DELETE`| `/api/tasks/{id}` | Delete a task |
+| `POST` | `/api/tasks/{id}/comments` | Add a comment to a task |
 
 ## 💡 Core Logic
 

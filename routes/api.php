@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/workspaces', [WorkspaceController::class, 'store']);
     Route::get('/workspaces/{workspace}', [WorkspaceController::class, 'show']);
     Route::post('/workspaces/{workspace}/invite', [WorkspaceController::class, 'invite']);
+    Route::delete('workspaces/{workspace}', [WorkspaceController::class, 'destroy']);
 
     Route::get('/workspaces/{workspace}/projects', [ProjectController::class, 'index']);
     Route::post('/projects', [ProjectController::class, 'store']);

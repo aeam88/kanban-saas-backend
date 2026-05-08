@@ -75,4 +75,13 @@ class WorkspaceController extends Controller
 
         return response()->json(['message' => 'User invited successfully']);
     }
+
+    public function destroy(Workspace $workspace)
+    {
+        $this->authorize('delete', $workspace);
+        
+        $workspace->delete();
+
+        return response()->json(['message' => 'Workspace deleted successfully']);
+    }
 }

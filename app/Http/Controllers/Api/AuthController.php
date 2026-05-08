@@ -5,10 +5,17 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
+use App\Services\AuthService;
 
 class AuthController extends Controller
 {
+    protected $authService;
+
+    public function __construct(AuthService $authService)
+    {
+        $this->authService = $authService;
+    }
+
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -16,29 +23,15 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        if (!Auth::attempt($credentials)) {
-            Log::channel('auth')->warning('Failed login attempt', [
-                'email' => $credentials['email'],
-                'ip' => $request->ip(),
-            ]);
+        $result = $this->authService->login($credentials, $request->ip());
 
+        if (!$result) {
             return response()->json([
                 'message' => 'Invalid credentials'
             ], 401);
         }
 
-        $user = Auth::user();
-
-        Log::channel('auth')->info('User logged in successfully', [
-            'user_id' => $user->id,
-            'email' => $user->email,
-            'ip' => $request->ip(),
-        ]);
-
-        return response()->json([
-            'user' => $user,
-            'token' => $user->createToken('api-token')->plainTextToken,
-        ]);
+        return response()->json($result);
     }
 
     public function register(Request $request)
@@ -49,34 +42,14 @@ class AuthController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        $user = \App\Models\User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => \Illuminate\Support\Facades\Hash::make($data['password']),
-        ]);
+        $result = $this->authService->register($data, $request->ip());
 
-        Log::channel('auth')->info('New user registered', [
-            'user_id' => $user->id,
-            'email' => $user->email,
-            'ip' => $request->ip(),
-        ]);
-
-        return response()->json([
-            'user' => $user,
-            'token' => $user->createToken('api-token')->plainTextToken,
-        ], 201);
+        return response()->json($result, 201);
     }
 
     public function logout(Request $request)
     {
-        $user = $request->user();
-        $user->currentAccessToken()->delete();
-
-        Log::channel('auth')->info('User logged out', [
-            'user_id' => $user->id,
-            'email' => $user->email,
-            'ip' => $request->ip(),
-        ]);
+        $this->authService->logout($request->user(), $request->ip());
 
         return response()->json(['message' => 'Logged out']);
     }

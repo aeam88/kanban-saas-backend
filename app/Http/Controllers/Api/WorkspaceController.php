@@ -76,6 +76,20 @@ class WorkspaceController extends Controller
         return response()->json(['message' => 'User invited successfully']);
     }
 
+    public function update(Request $request, Workspace $workspace)
+    {
+        $this->authorize('update', $workspace);
+
+        $data = $request->validate([
+            'name' => 'sometimes|string|max:255',
+            'description' => 'nullable|string',
+        ]);
+
+        $workspace->update($data);
+
+        return response()->json($workspace);
+    }
+
     public function destroy(Workspace $workspace)
     {
         $this->authorize('delete', $workspace);

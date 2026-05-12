@@ -7,6 +7,8 @@
 
 A professional, multi-tenant Kanban board API built with Laravel. This project provides a robust foundation for building SaaS applications like Trello, featuring workspaces, projects, real-time task movement, and strict authorization policies.
 
+- **Frontend**: [Nuxt 4](https://github.com/aeam88/kanban-saas-frontend)
+
 ## 🚀 Key Features
 
 - **Multi-tenancy**: Strictly scoped data by Workspaces. Users can belong to multiple workspaces with different roles.

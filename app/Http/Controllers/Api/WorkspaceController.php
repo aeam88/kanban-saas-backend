@@ -62,7 +62,7 @@ class WorkspaceController extends Controller
 
         $data = $request->validate([
             'email' => 'required|email|exists:users,email',
-            'role' => 'required|in:admin,member',
+            'role' => 'required|in:admin,member,viewer',
         ]);
 
         $userToInvite = \App\Models\User::where('email', $data['email'])->first();

@@ -9,6 +9,7 @@ A professional, multi-tenant Kanban board API built with Laravel. This project p
 
 - **Check the Frontend of this project**: [I want to see it](https://github.com/aeam88/kanban-saas-frontend)
 
+
 ## 🚀 Key Features
 
 - **Multi-tenancy**: Strictly scoped data by Workspaces. Users can belong to multiple workspaces with different roles.

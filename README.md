@@ -145,6 +145,11 @@ public function view(User $user, Project $project)
 }
 ```
 
+## 🎬 Video
+
+https://github.com/user-attachments/assets/1801eca0-d4e6-4cb7-85be-3cf81eaf8822
+
+
 ## 📄 License
 
 Proprietary Software. All rights reserved. 

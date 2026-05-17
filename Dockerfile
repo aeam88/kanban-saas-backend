@@ -10,10 +10,11 @@ RUN apt-get update && apt-get install -y \
     unzip \
     nodejs \
     npm \
-    libpq-dev
+    libpq-dev \
+    libzip-dev
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
-RUN docker-php-ext-install pdo_pgsql mbstring exif pcntl bcmath gd
+RUN docker-php-ext-install pdo_pgsql mbstring exif pcntl bcmath gd zip
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
@@ -21,6 +22,8 @@ WORKDIR /var/www/html
 
 COPY . /var/www/html
 
+ENV COMPOSER_ALLOW_SUPERUSER=1
+ENV COMPOSER_MEMORY_LIMIT=-1
 RUN composer install --optimize-autoloader --no-dev
 RUN npm install && npm run build
 

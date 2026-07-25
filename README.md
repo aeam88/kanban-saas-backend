@@ -147,7 +147,7 @@ public function view(User $user, Project $project)
 
 ## 🎬 Video
 
-https://github.com/user-attachments/assets/1801eca0-d4e6-4cb7-85be-3cf81eaf8822
+https://github.com/user-attachments/assets/8620ef56-0216-4100-9eeb-e636e7e0a9be
 
 
 ## 📄 License
